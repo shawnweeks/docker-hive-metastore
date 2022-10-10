@@ -45,8 +45,6 @@ RUN microdnf install -y java-1.8.0-openjdk-devel shadow-utils openssl && \
 
 COPY --from=build --chown=${METASTORE_USER}:${METASTORE_GROUP} [ "${METASTORE_HOME}", "${METASTORE_HOME}/" ]
 COPY --from=build --chown=${METASTORE_USER}:${METASTORE_GROUP} [ "${HADOOP_HOME}", "${HADOOP_HOME}/" ]
-COPY --chown=${METASTORE_USER}:${METASTORE_GROUP} [ "templates/", "/opt/templates/" ]
-COPY --chown=${METASTORE_USER}:${METASTORE_GROUP} --chmod=755 [ "entrypoint*.sh", "${METASTORE_HOME}/" ]
 
 USER ${METASTORE_USER}
 ENV JAVA_HOME=/usr/lib/jvm/java-1.8.0

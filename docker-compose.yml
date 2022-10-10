@@ -7,6 +7,8 @@ services:
         --hiveconf javax.jdo.option.ConnectionDriverName=org.postgresql.Driver
         --hiveconf javax.jdo.option.ConnectionUserName=metastore_user
         --hiveconf javax.jdo.option.ConnectionPassword=metastore_user
+    ports:
+      - 9083:9083
     depends_on:
       postgres:
         condition: service_started
