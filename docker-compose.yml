@@ -1,0 +1,27 @@
+services:
+  metastore:
+    image: apache/hive/standalone-metastore:latest
+    command: entrypoint.sh
+    environment:
+      - METASTORE_TYPE=postgres
+      - METASTORE_URL=jdbc:postgresql://postgres:5432/metastore
+      - METASTORE_DRIVER=org.postgresql.Driver
+      - METASTORE_USERNAME=metastore_user
+      - METASTORE_PASSWORD=metastore_user
+    volumes:
+      - metastore-init:/opt/metastore/init
+    depends_on:
+      postgres:
+        condition: service_started
+  postgres:
+    image: postgres:14
+    environment:
+      - POSTGRES_DB=metastore
+      - POSTGRES_USER=metastore_user
+      - POSTGRES_PASSWORD=metastore_user
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+
+volumes:
+  metastore-init:
+  postgres-data:
